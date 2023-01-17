@@ -61,6 +61,8 @@ class BaseWebView extends StatefulWidget {
   /// Not available for Web
   final Stream<String>? urlStream;
 
+  final void Function(InAppWebViewController controller, Uri? url)? onLoadStop;
+
   final bool goBackBtnVisible;
   final bool goForwardBtnVisible;
   final bool refreshBtnVisible;
@@ -78,6 +80,7 @@ class BaseWebView extends StatefulWidget {
     this.themeData,
     this.textLocales,
     this.contentLocale,
+    this.onLoadStop,
     Map<String, String>? headers,
     this.urlStream,
     bool? goBackBtnVisible = true,
@@ -229,6 +232,7 @@ class BaseWebViewState<S extends BaseWebView> extends State<S>
         },
         onLoadStop: (controller, url) async {
           hideLoading();
+          widget.onLoadStop?.call(controller, url);
         },
         onLoadError: (controller, url, code, message) => hideLoading(),
       );

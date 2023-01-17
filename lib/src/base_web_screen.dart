@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:oauth_webauth/oauth_webauth.dart';
 
 class BaseWebScreen extends StatelessWidget {
@@ -99,6 +100,8 @@ class BaseWebScreen extends StatelessWidget {
   /// Not available for Web
   final Stream<String>? urlStream;
 
+  final void Function(InAppWebViewController controller, Uri? url)? onLoadStop;
+
   final bool? goBackBtnVisible;
   final bool? goForwardBtnVisible;
   final bool? refreshBtnVisible;
@@ -121,6 +124,7 @@ class BaseWebScreen extends StatelessWidget {
     this.textLocales,
     this.contentLocale,
     this.headers,
+    this.onLoadStop,
     this.urlStream,
     this.goBackBtnVisible,
     this.goForwardBtnVisible,
@@ -154,6 +158,7 @@ class BaseWebScreen extends StatelessWidget {
                 textLocales: textLocales,
                 headers: headers,
                 contentLocale: contentLocale,
+                onLoadStop: onLoadStop,
                 urlStream: urlStream,
                 goBackBtnVisible: goBackBtnVisible,
                 goForwardBtnVisible: goForwardBtnVisible,

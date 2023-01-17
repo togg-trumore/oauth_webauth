@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:http/http.dart' as http;
 import 'package:oauth_webauth/oauth_webauth.dart';
@@ -94,6 +95,7 @@ class OAuthWebView extends BaseWebView {
     this.scopes,
     this.loginHint,
     this.promptValues,
+    void Function(InAppWebViewController controller, Uri? url)? onLoadStop,
     required this.onSuccessAuth,
     required ValueChanged<dynamic> onError,
     required VoidCallback onCancel,
@@ -118,6 +120,7 @@ class OAuthWebView extends BaseWebView {
           redirectUrls: [],
           onError: onError,
           onCancel: onCancel,
+          onLoadStop: onLoadStop,
           onCertificateValidate: onCertificateValidate,
           themeData: themeData,
           textLocales: textLocales,
