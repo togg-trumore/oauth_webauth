@@ -402,7 +402,8 @@ class BaseWebViewState<S extends BaseWebView> extends State<S>
 
   Future<void> controllerClearCache() async {
     showLoading();
-    await OAuthWebAuth.instance.clearCache(controller: inAppWebViewController);
+    await OAuthWebAuth.instance
+        .clearCache(context, controller: inAppWebViewController);
     hideLoading();
     controllerReload();
   }
@@ -416,7 +417,8 @@ class BaseWebViewState<S extends BaseWebView> extends State<S>
 
   Future<void> controllerClearAll() async {
     showLoading();
-    await OAuthWebAuth.instance.clearAll(controller: inAppWebViewController);
+    await OAuthWebAuth.instance
+        .clearAll(context, controller: inAppWebViewController);
     hideLoading();
     controllerReload();
   }
