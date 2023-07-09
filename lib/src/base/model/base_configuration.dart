@@ -27,6 +27,8 @@ class BaseConfiguration {
   /// This function will be called when user cancels authentication.
   final VoidCallback? onCancel;
 
+  final void Function(InAppWebViewController controller, Uri? url)? onLoadStop;
+
   /// This function will be called when [authorizationEndpointUrl] is first loaded.
   /// If false is returned then a CertificateException() will be thrown
   /// Not available for Web
@@ -59,6 +61,7 @@ class BaseConfiguration {
     required this.redirectUrls,
     this.onSuccessRedirect,
     this.onError,
+    this.onLoadStop,
     this.onCancel,
     this.onCertificateValidate,
     Map<String, String>? headers,
@@ -93,6 +96,7 @@ class BaseConfiguration {
     ValueChanged<String>? onSuccessRedirect,
     ValueChanged<dynamic>? onError,
     VoidCallback? onCancel,
+    void Function(InAppWebViewController controller, Uri? url)? onLoadStop,
     CertificateValidator? onCertificateValidate,
     Map<String, String>? headers,
     Stream<String>? urlStream,
@@ -111,6 +115,7 @@ class BaseConfiguration {
         onSuccessRedirect: onSuccessRedirect ?? this.onSuccessRedirect,
         onError: onError ?? this.onError,
         onCancel: onCancel ?? this.onCancel,
+        onLoadStop: onLoadStop ?? this.onLoadStop,
         onCertificateValidate:
             onCertificateValidate ?? this.onCertificateValidate,
         headers: headers ?? this.headers,

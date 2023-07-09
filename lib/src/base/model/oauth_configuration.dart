@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:oauth_webauth/oauth_webauth.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:http/http.dart' as http;
@@ -94,6 +95,7 @@ class OAuthConfiguration extends BaseConfiguration {
     this.onSuccessAuth,
     super.onError,
     super.onCancel,
+    super.onLoadStop,
     super.onCertificateValidate,
     super.headers,
     super.urlStream,
@@ -124,6 +126,7 @@ class OAuthConfiguration extends BaseConfiguration {
     this.loginHint,
     this.promptValues,
     this.onSuccessAuth,
+    super.onLoadStop,
     super.initialUrl = '',
     super.redirectUrls = const [],
     super.onSuccessRedirect,
@@ -162,6 +165,7 @@ class OAuthConfiguration extends BaseConfiguration {
     ValueChanged<String>? onSuccessRedirect,
     ValueChanged<dynamic>? onError,
     VoidCallback? onCancel,
+    void Function(InAppWebViewController controller, Uri? url)? onLoadStop,
     CertificateValidator? onCertificateValidate,
     Map<String, String>? headers,
     Stream<String>? urlStream,
@@ -194,6 +198,7 @@ class OAuthConfiguration extends BaseConfiguration {
         onSuccessRedirect: onSuccessRedirect ?? this.onSuccessRedirect,
         onError: onError ?? this.onError,
         onCancel: onCancel ?? this.onCancel,
+        onLoadStop: onLoadStop ?? this.onLoadStop,
         onCertificateValidate:
             onCertificateValidate ?? this.onCertificateValidate,
         headers: headers ?? this.headers,
