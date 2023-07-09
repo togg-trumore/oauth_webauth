@@ -9,6 +9,25 @@ Types of changes
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
+## 4.0.1+2
+### Changed
+- Added support for Dart 3.
+- Replaced window singleton with FlutterView.
+- Updated `clearCache` and `clearAll` functions with optional `BuildContext` to support `FlutterView`
+> Thanks [@frederikstonge](https://github.com/frederikstonge)) for [PR #12](https://github.com/luis901101/oauth_webauth/pull/12) 
+
+## 4.0.0+14
+### Added
+- Added support to `clearCache` and `clearCookies` directly from `OAuthWebAuth.instance`.
+
+### Changed
+- `OauthWebScreen` renamed to `OAuthWebScreen` and `OauthWebView` renamed to `OAuthWebView`.
+- Full code refactor to use `BaseConfiguration(...)` and `OAuthConfiguration(...)`. See readme for migration.
+- SDK constraints updated to `sdk: ">=2.19.0 <3.0.0"` and `flutter: ">=2.0.0"`.
+
+### Fixed
+- Fixed bug in redirect url handling that caused `invalid_grant` due to content after `#` in url.
+
 ## 3.1.2+13
 ### Fixed
 - Fixed bug on BaseOAuthFlowMixin onSuccess function that caused wrong flow cancellation on baseUrl redirect.  
