@@ -115,20 +115,16 @@ class BaseWebViewState<S extends BaseWebView> extends State<S>
       /// known certification authority.
       content = InAppWebView(
         // windowId: 12345,
-        initialOptions: InAppWebViewGroupOptions(
-          crossPlatform: InAppWebViewOptions(
-            useShouldOverrideUrlLoading: true,
-            supportZoom: false,
-            transparentBackground: true,
+        initialSettings: InAppWebViewSettings(
+          useShouldOverrideUrlLoading: true,
+          supportZoom: false,
+          transparentBackground: true,
 
-            /// This custom userAgent is mandatory due to security constraints of Google's OAuth2 policies (https://developers.googleblog.com/2021/06/upcoming-security-changes-to-googles-oauth-2.0-authorization-endpoint.html)
-            userAgent: 'Mozilla/5.0',
-          ),
-          android: AndroidInAppWebViewOptions(
-            useHybridComposition: true,
-          ),
+          /// This custom userAgent is mandatory due to security constraints of Google's OAuth2 policies (https://developers.googleblog.com/2021/06/upcoming-security-changes-to-googles-oauth-2.0-authorization-endpoint.html)
+          userAgent: 'Mozilla/5.0',
+          useHybridComposition: true,
         ),
-        initialUrlRequest: URLRequest(url: initialUri, headers: {
+        initialUrlRequest: URLRequest(url: WebUri.uri(initialUri), headers: {
           ...configuration.headers,
           if (configuration.contentLocale != null)
             'Accept-Language': configuration.contentLocale!.toLanguageTag()
@@ -160,7 +156,9 @@ class BaseWebViewState<S extends BaseWebView> extends State<S>
           hideLoading();
           configuration.onLoadStop?.call(controller, url);
         },
-        onLoadError: (controller, url, code, message) => hideLoading(),
+         onReceivedError: (controller, request, error) {
+          hideLoading();
+        },
       );
     }
 
@@ -378,7 +376,7 @@ class BaseWebViewState<S extends BaseWebView> extends State<S>
   Future<void> controllerGo(String url) async {
     showLoading();
     inAppWebViewController?.loadUrl(
-        urlRequest: URLRequest(url: Uri.parse(url), headers: {
+        urlRequest: URLRequest(url: WebUri(url), headers: {
       ...configuration.headers,
       if (configuration.contentLocale != null)
         'Accept-Language': configuration.contentLocale!.toLanguageTag()
