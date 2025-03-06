@@ -1,6 +1,6 @@
 name: oauth_webauth
 description: This plugin provides an alternative to AppAuth using WebView for OAuth 2.0 authorization/authentication.
-version: 5.0.0
+version: 6.0.0
 repository: https://github.com/luis901101/oauth_webauth
 issue_tracker: https://github.com/luis901101/oauth_webauth/issues
 topics:
